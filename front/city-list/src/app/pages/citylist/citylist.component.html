@@ -1,0 +1,37 @@
+<div class="list">
+
+  <div class="logo"><img src="../../../assets/img/eurovision_logo.png" width="15%" height="15%"></div>
+
+  <h2>Cities</h2>
+
+  <mat-form-field>
+    <input matInput placeholder="Filter" #input>
+  </mat-form-field>
+
+  <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <mat-table class="cities-table mat-elevation-z8" [dataSource]="dataSource">
+
+    <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>id</mat-header-cell>
+        <mat-cell *matCellDef="let city">{{city.id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-cell class="name-cell"
+                  *matCellDef="let city">{{city.name}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+  </mat-table>
+
+  <mat-paginator [length]="dataSource?.totalElements" [pageSize]="5"
+                   [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]=true></mat-paginator>
+
+</div>
